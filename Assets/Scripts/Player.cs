@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+	public float health = 3.0f;
 	public float moveSpeed = 7.0f;
+	public float points = 0.0f;
 	public GameObject bulltetSpawner;
 	public GameObject bullet;
+	public Transform initial;
+
 	
 	// Use this for initialization
 	void Start () {
@@ -44,6 +48,20 @@ public class Player : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			Shoot();
+		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "Enemey")
+		{
+			health -= 1.0f;
+			transform.Translate(initial.position, Space.World);
+			if (health < 0) {
+				print("Player died");
+				/*Destroy(this.gameObject);*/
+			}
+			
 		}
 	}
 
