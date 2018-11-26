@@ -17,12 +17,13 @@ public class Bullet : MonoBehaviour {
 			Destroy(this.gameObject);
 		}
 	}
-
-	void OnTriggerEnter(Collider other) {
-		if (other.tag == "Enemey") {
-			triggerEnemy = other.gameObject;
-			triggerEnemy.GetComponent<Enemey>().health -= damege;
-			Destroy(this.gameObject);
-		}
+	void OnCollisionEnter(Collision other) {
+			if (other.gameObject.tag == "Enemy") {
+			this.gameObject.transform.Rotate(180, 0, 0, Space.World);
+				triggerEnemy = other.gameObject;
+				triggerEnemy.GetComponent<Enemey>().health -= damege;
+				Destroy(other.gameObject);
+			
+			}
 	}
 }
